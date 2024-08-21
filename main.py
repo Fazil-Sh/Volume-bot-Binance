@@ -8,6 +8,13 @@ class BinanceApi:
         self._list_coins = []
         self._multiplier_all = {}
         self.qty_track = quantity_tracking_coins
+        if not self._list_coins:
+             BinanceApi.get_top_coins(self)
+             
+        self._bool_dict_coins = {c: False for c in self._list_coins}
+        self._Vol_100candle_30min = {c: 0 for c in self._list_coins}
+        self._correct_vol_altcoin = {c: 0 for c in self._list_coins}
+        self._all_volume = {c: 0 for c in self._list_coins}
 
 
     def get_top_coins(self):
@@ -23,7 +30,6 @@ class BinanceApi:
             self._list_coins.append(coin['symbol'])
             vol = float(coin['quoteVolume'])
             multi = self._multiplier_all
-            print(coin['symbol'], coin['quoteVolume'])
 
             if vol < 50_000_000:
                  multi[coin['symbol']] = 5
@@ -38,12 +44,6 @@ class BinanceApi:
             elif vol > 1_500_000_000:
                   multi[coin['symbol']] = 2.2
                       
-        self._bool_dict_coins = {c: False for c in self._list_coins}
-        self._Vol_100candle_30min = {c: 0 for c in self._list_coins}
-        self._correct_vol_altcoin = {c: 0 for c in self._list_coins}
-        self._all_volume = {c: 0 for c in self._list_coins}
-        
-
 
     def get_vol_100candles_30m(self):
         list_coins = self._list_coins
@@ -87,7 +87,6 @@ async def binance_websocket():
 
 if __name__ == '__main__':
     c = BinanceApi(12)
-    c.get_top_coins()
     c.get_vol_100candles_30m()
 
     uri = "wss://stream.binance.com:9443/ws/btcusdt@kline_5m"
