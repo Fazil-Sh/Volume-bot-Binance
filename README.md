@@ -4,5 +4,6 @@ How the bot works:
 
 How to use:
 Pass in a class instance of the number of coins to track
+
 For example - bot = BinanceApi(5)
 Here I will track the top 5 coins by trading volume.
