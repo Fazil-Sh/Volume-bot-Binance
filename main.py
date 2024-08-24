@@ -75,8 +75,9 @@ async def binance_websocket():
 
                  if c._all_volume[data['s']] >= c._correct_vol_altcoin[data["s"]] and not c._bool_dict_coins[data['s']]:
                      c._bool_dict_coins[data['s']] = True
-                     text = f"volume increase!!!\n - {data['s'][:-4]}"
-                     params = {'text': text}
+
+                     text = f"⚡*{data['s'][:-4].upper()}* volume increase!"
+                     params = {'text': text, "parse_mode": "Markdown"}
                      requests.post(f"https://api.telegram.org/bot<YourToken>/SendMessage?chat_id=<Your_chatId>&text={text}", params=params)
 
             if data['e'] == 'kline' and data['k']['x']:
