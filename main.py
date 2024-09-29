@@ -14,7 +14,6 @@ class BinanceApi:
         self._bool_dict_coins = {c: False for c in self._list_coins}
 
 
-
     def get_top_coins(self):
         shit_coin = ['USDCUSDT', 'FDUSDUSDT', 'EURUSDT', 'PAXGUSDT', 'TUSDUSDT', 'EURIUSDT', 'USDPUSDT', 'WBTCUSDT']
 
@@ -29,7 +28,7 @@ class BinanceApi:
             vol = float(coin['quoteVolume'])
             self.__multi_vol(vol, coin['symbol'])
 
-    #че тут дальше? доделать        
+
     def __multi_vol(self, vol, symb):
         multi = self._multiplier_all
 
@@ -68,7 +67,7 @@ async def binance_websocket():
                       c._bool_dict_coins[i] = False
 
             if float(data['k']['q']) > c._multiplier_all[symb] and c._bool_dict_coins[symb] == False and not data['k']['x']:
-               c._bool_dict_coins_5[symb] = True
+               c._bool_dict_coins[symb] = True
                
                text = f"⚡*{data['s'][:-4].upper()}* volume increase!"
                params = {'text': text, "parse_mode": "Markdown"}
