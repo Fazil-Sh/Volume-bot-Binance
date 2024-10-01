@@ -62,8 +62,8 @@ async def binance_websocket():
             data = json.loads(message)
             symb = data['s'].lower()
 
-            if data['k']['x'] and c._bool_dict_coins[i]:
-                  c._bool_dict_coins[i] = False
+            if data['k']['x'] and c._bool_dict_coins[symb]:
+                  c._bool_dict_coins[symb] = False
 
             if float(data['k']['q']) > c._multiplier_all[symb] and c._bool_dict_coins[symb] == False and not data['k']['x']:
                c._bool_dict_coins[symb] = True
