@@ -1,6 +1,6 @@
 # How the bot works:
 1) Parses the top coins by trading volume
-2) Counts the trading volume for each coin
+2) If the trading volume is greater than the threshold, a signal is sent to Telegram
 
 # How to use:  
 Pass in a class instance of the number of coins to track
