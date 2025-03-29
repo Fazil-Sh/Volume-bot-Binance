@@ -4,7 +4,10 @@ import websockets, requests
 
 
 class BinanceApi:
-    def __init__(self, quantity_tracking_coins):
+    def __init__(self, quantity_tracking_coins: int, tg_token: str, tg_chat_id: str):
+        self.tg_token = tg_token
+        self.tg_chat_id = tg_chat_id
+        
         self._list_coins = []
         self._multiplier_all = {}
         self.qty_track = quantity_tracking_coins
@@ -70,12 +73,12 @@ async def binance_websocket():
                
                text = f"⚡*{data['s'][:-4].upper()}* volume increase!"
                params = {'text': text, "parse_mode": "Markdown"}
-               requests.post(f"https://api.telegram.org/bot<YourToken>/SendMessage?chat_id=<Your_chatId>&text={text}", params=params)
+               requests.post(f"https://api.telegram.org/bot{tg_token}/SendMessage?chat_id=f'{tg_chat_id}'&text={text}", params=params)
 
 
 
 if __name__ == '__main__':
-    c = BinanceApi(5)
+    c = BinanceApi(5, 'tg_token', 'tg_chat_id')
     c.get_top_coins()
 
     uri = "wss://stream.binance.com:9443/ws/btcusdt@kline_5m"
